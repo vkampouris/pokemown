@@ -4,6 +4,9 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json'),
 
     sass: {
+      options: {
+        sourceMap: true
+      },
   		dist: {
   			files: {
   			  'static/css/main.css' : 'static/sass/main.scss'
