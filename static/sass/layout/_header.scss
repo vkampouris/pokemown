@@ -5,10 +5,10 @@
 	}
 
 	#header {
-		background: darken(_palette(accent2, bg), 12);
-		border-bottom: 1em solid _palette(brand, yellow);
+		background: _palette(brand, bg2);
+		border-bottom: 1em solid _palette(brand, green);
 		box-sizing: border-box;
-		color: _palette(brand, yellow);
+		color: _palette(brand, text);
 		cursor: default;
 		left: 0;
 		line-height: 3.50em;

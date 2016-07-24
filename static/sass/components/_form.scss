@@ -135,10 +135,10 @@
 }
 
 .onoffswitch-checkbox:checked + .onoffswitch-label {
-  background-color: #4A80F5;
+  background-color: _palette(brand, green);
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before {
-	border-color: #4A80F5;
+	border-color: _palette(brand, green);
 }
 .onoffswitch-checkbox:checked + .onoffswitch-label:before {
   right: 0px;
@@ -149,7 +149,7 @@
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
-	background-color: #4A80F5 !important;
+	background-color: _palette(brand, green) !important;
 }
 
 .select2-container--default.select2-container--focus .select2-selection--multiple {
