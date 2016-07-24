@@ -1832,18 +1832,9 @@ body {
     #header > a:hover {
       color: #ffffff; }
     #header > a[href="#nav"] {
-      text-decoration: none;
-      -webkit-tap-highlight-color: transparent;
       display: block;
-      float: left; }
-      #header > a[href="#nav"]:before {
-        content: "";
-        -moz-osx-font-smoothing: grayscale;
-        -webkit-font-smoothing: antialiased;
-        font-family: FontAwesome;
-        font-style: normal;
-        font-weight: normal;
-        text-transform: none !important; }
+      float: left;
+      -webkit-tap-highlight-color: transparent; }
       #header > a[href="#nav"]:before {
         margin: 0 0.5em 0 0; }
     #header > a + a[href="#nav"]:last-child {
