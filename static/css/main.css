@@ -1807,7 +1807,7 @@ body {
   left: 0;
   line-height: 3.50em;
   position: fixed;
-  text-align: left;
+  text-align: center;
   top: 0;
   width: 100%;
   z-index: 10001; }
@@ -1833,9 +1833,11 @@ body {
       color: #ffffff; }
     #header > a[href="#nav"] {
       text-decoration: none;
-      -webkit-tap-highlight-color: transparent; }
+      -webkit-tap-highlight-color: transparent;
+      display: block;
+      float: left; }
       #header > a[href="#nav"]:before {
-        content: "";
+        content: "";
         -moz-osx-font-smoothing: grayscale;
         -webkit-font-smoothing: antialiased;
         font-family: FontAwesome;
