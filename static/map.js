@@ -63,8 +63,12 @@ var pGoStyle=[{"featureType":"landscape.man_made","elementType":"geometry.fill",
 
 var selectedStyle = 'light';
 
-function initMap() {
-
+function initMap()
+{
+  navigator.geolocation.getCurrentPosition(function(position)
+  {
+    center_lat = position.coords.latitude;
+    center_lng = position.coords.longitude;
 
     map = new google.maps.Map(document.getElementById('map'), {
         center: {
@@ -74,27 +78,27 @@ function initMap() {
         zoom: 16,
         fullscreenControl: true,
         streetViewControl: false,
-		mapTypeControl: true,
-		mapTypeControlOptions: {
-          style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
-          position: google.maps.ControlPosition.RIGHT_TOP,
-          mapTypeIds: [
-              google.maps.MapTypeId.ROADMAP,
-              google.maps.MapTypeId.SATELLITE,
-              'dark_style',
-              'style_light2',
-              'style_pgo']
-        },
-    });
+    		mapTypeControl: true,
+    		mapTypeControlOptions: {
+              style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+              position: google.maps.ControlPosition.RIGHT_TOP,
+              mapTypeIds: [
+                  google.maps.MapTypeId.ROADMAP,
+                  google.maps.MapTypeId.SATELLITE,
+                  'dark_style',
+                  'style_light2',
+                  'style_pgo']
+            },
+        });
 
-	var style_dark = new google.maps.StyledMapType(darkStyle, {name: "Dark"});
-	map.mapTypes.set('dark_style', style_dark);
+  	var style_dark = new google.maps.StyledMapType(darkStyle, {name: "Dark"});
+  	map.mapTypes.set('dark_style', style_dark);
 
-	var style_light2 = new google.maps.StyledMapType(light2Style, {name: "Light2"});
-	map.mapTypes.set('style_light2', style_light2);
+  	var style_light2 = new google.maps.StyledMapType(light2Style, {name: "Light2"});
+  	map.mapTypes.set('style_light2', style_light2);
 
-	var style_pgo = new google.maps.StyledMapType(pGoStyle, {name: "PokemonGo"});
-	map.mapTypes.set('style_pgo', style_pgo);
+  	var style_pgo = new google.maps.StyledMapType(pGoStyle, {name: "PokemonGo"});
+  	map.mapTypes.set('style_pgo', style_pgo);
 
     map.addListener('maptypeid_changed', function(s) {
         localStorage['map_style'] = this.mapTypeId;
@@ -116,6 +120,7 @@ function initMap() {
     });
 
     initSidebar();
+  }, function() { /* NOP */});
 };
 
 function initSidebar() {
