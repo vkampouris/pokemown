@@ -446,8 +446,16 @@ function initMap()
         animation: google.maps.Animation.DROP
     });
 
-    initSidebar();
-  }, function() { /* NOP */});
+    // Get data for current location
+    $.post("next_loc?lat=" + center_lat + "&lon=" + center_lng, {}).done(
+      function (data)
+      {
+        window.setInterval(updateMap, 5000);
+        updateMap();
+        initSidebar();
+      });
+
+  }, function() { console.log("fail") });
 };
 
 function initSidebar() {
@@ -813,9 +821,6 @@ function updateMap() {
         clearStaleMarkers();
     });
 };
-
-window.setInterval(updateMap, 5000);
-updateMap();
 
 document.getElementById('gyms-switch').onclick = function() {
     localStorage["showGyms"] = this.checked;
