@@ -447,16 +447,17 @@ function initMap()
     });
 
     // Get data for current location
-    $.post("next_loc?lat=" + center_lat + "&lon=" + center_lng, {}).done(
-      function (data)
-      {
+    $.post("next_loc", {
+        lat: center_lat,
+        lon: center_lng
+    }).done(function (data) {
         window.setInterval(updateMap, 5000);
         updateMap();
         initSidebar();
-      });
+    });
 
-  }, function() { console.log("fail") });
-};
+    }, function() { console.log("fail"); });
+}
 
 function initSidebar() {
     $('#gyms-switch').prop('checked', localStorage.showGyms === 'true');
