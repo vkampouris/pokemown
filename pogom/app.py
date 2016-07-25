@@ -2,16 +2,19 @@
 # -*- coding: utf-8 -*-
 
 import calendar
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, session, jsonify, render_template, request
 from flask.json import JSONEncoder
 from datetime import datetime
 from s2sphere import *
 
 from . import config
 from .models import Pokemon, Gym, Pokestop, ScannedLocation
-
+from pogom.search import search_loop
+from pogom.utils import get_args
+from threading import Thread
 
 class Pogom(Flask):
+
     def __init__(self, import_name, **kwargs):
         super(Pogom, self).__init__(import_name, **kwargs)
         self.json_encoder = CustomJSONEncoder
@@ -21,7 +24,31 @@ class Pogom(Flask):
         self.route("/next_loc", methods=['POST'])(self.next_loc)
         self.route("/mobile", methods=['GET'])(self.list_pokemon)
 
+    def start_locator_thread(self):
+        search_thread = Thread(target=search_loop, args=(get_args(),))
+        search_thread.daemon = True
+        search_thread.name = 'search_thread'
+        search_thread.start()
+
+    def refresh(self, force=False):
+        last_refresh = session.get('last_refresh')
+        delta = 100
+
+        if last_refresh:
+            delta = (datetime.now() - last_refresh).seconds
+
+        if force or delta > 40:
+            print "Delta was bigger than 40 seconds. Refreshing"
+            self.start_locator_thread()
+            session['last_refresh'] = datetime.now()
+        else:
+            print "Delta not bigger. Wait you fucking impatient prick"
+
+
     def fullmap(self):
+
+        self.refresh()
+
         return render_template('map.html',
                                lat=config['ORIGINAL_LATITUDE'],
                                lng=config['ORIGINAL_LONGITUDE'],
@@ -59,6 +86,7 @@ class Pogom(Flask):
             return 'bad parameters', 400
         else:
             config['NEXT_LOCATION'] = {'lat': lat, 'lon': lon}
+            self.refresh(True)
             return 'ok'
 
     def list_pokemon(self):

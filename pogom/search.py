@@ -10,7 +10,9 @@ from threading import Thread, Semaphore
 from pgoapi import PGoApi
 from pgoapi.utilities import f2i, get_cellid
 
+from .utils import get_random_credentials
 from . import config
+
 from .models import parse_map
 
 log = logging.getLogger(__name__)
@@ -92,7 +94,10 @@ def login(args, position):
 
     api.set_position(*position)
 
-    while not api.login(args.auth_service, args.username, args.password):
+    #pick a username and a passowrd
+    username, password = get_random_credentials()
+
+    while not api.login(args.auth_service, username, password):
         log.info('Failed to login to Pokemon Go. Trying again.')
         time.sleep(config['REQ_SLEEP'])
 
@@ -178,19 +183,13 @@ def search(args, i):
 
 
 def search_loop(args):
-    i = 0
     try:
-        while True:
-            log.info("Map iteration: {}".format(i))
-            search(args, i)
-            log.info("Scanning complete.")
-            if args.scan_delay > 1:
-                log.info('Waiting {:d} seconds before beginning new scan.'.format(args.scan_delay))
-                time.sleep(args.scan_delay)
-            i += 1
+        search(args, 0)
+        log.info("Scanning complete.")
 
     # This seems appropriate
     except Exception as e:
         log.info('Crashed, waiting {:d} seconds before restarting search.'.format(args.scan_delay))
+        log.info(e)
         time.sleep(args.scan_delay)
         search_loop(args)

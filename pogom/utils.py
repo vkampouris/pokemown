@@ -12,6 +12,7 @@ from datetime import datetime, timedelta
 import ConfigParser
 
 from . import config
+from random import randint
 from exceptions import APIKeyException
 
 
@@ -19,9 +20,13 @@ def parse_unicode(bytestring):
     decoded_string = bytestring.decode(sys.getfilesystemencoding())
     return decoded_string
 
+def get_config():
+    cfg = ConfigParser.ConfigParser()
+    cfg.read(os.path.join(os.path.dirname(__file__), '../config/config.ini'))
+    return cfg
+
 def parse_config(args):
-    Config = ConfigParser.ConfigParser()
-    Config.read(os.path.join(os.path.dirname(__file__), '../config/config.ini'))
+    Config = get_config()
     args.auth_service = Config.get('Authentication', 'Service')
     args.username = Config.get('Authentication', 'Username')
     args.password = Config.get('Authentication', 'Password')
@@ -72,6 +77,18 @@ def get_args():
             args.password = getpass.getpass()
 
     return args
+
+def get_random_credentials():
+
+    usernames = Config.get("Authentication", "Usernames").split(",")
+    passwords = Config.get("Authentication", "Passwords").split(",")
+
+    index = randint(0, len(usernames) - 1)
+
+    Config = get_config()
+    creds = [usernames[index], passwords[index]]
+
+    return creds
 
 def insert_mock_data():
     num_pokemon = 6

@@ -21,12 +21,6 @@ log = logging.getLogger(__name__)
 
 search_thread = Thread()
 
-def start_locator_thread(args):
-    search_thread = Thread(target=search_loop, args=(args,))
-    search_thread.daemon = True
-    search_thread.name = 'search_thread'
-    search_thread.start()
-
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO, format='%(asctime)s [%(module)11s] [%(levelname)7s] %(message)s')
@@ -59,12 +53,11 @@ if __name__ == '__main__':
     config['LOCALE'] = args.locale
     config['CHINA'] = args.china
 
-    if not args.mock:
-        start_locator_thread(args)
-    else:
+    if args.mock:
         insert_mock_data()
 
     app = Pogom(__name__)
+    app.secret_key = 'A0Zr98j$*(#$*(D_G*FG(ι4*9849384ll/3yXHH!jmN]LWX/,?RT'
 
     if args.cors:
         CORS(app);
