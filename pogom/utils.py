@@ -80,12 +80,13 @@ def get_args():
 
 def get_random_credentials():
 
-    usernames = Config.get("Authentication", "Usernames").split(",")
+    Config = get_config()
+    
+	usernames = Config.get("Authentication", "Usernames").split(",")
     passwords = Config.get("Authentication", "Passwords").split(",")
 
     index = randint(0, len(usernames) - 1)
 
-    Config = get_config()
     creds = [usernames[index], passwords[index]]
 
     return creds
