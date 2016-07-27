@@ -102,3 +102,7 @@
 			min-width: 320px;
 		}
 	}
+
+	.beta {
+		color: darken(_palette(brand, green), 20%);
+	}
