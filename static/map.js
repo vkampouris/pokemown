@@ -794,7 +794,7 @@ function updateMap($labelCountdown) {
     localStorage.showPokemon = localStorage.showPokemon || true;
     localStorage.showGyms = localStorage.showGyms || true;
     localStorage.showPokestops = localStorage.showPokestops || false;
-    localStorage.showScanned = localStorage.showScanned || false;
+    localStorage.showScanned = localStorage.showScanned || true;
 
     getRawData($labelCountdown, {
         'pokemon': localStorage.showPokemon,
