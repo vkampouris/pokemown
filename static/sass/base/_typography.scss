@@ -31,12 +31,17 @@ body, input, select, textarea {
 }
 
 a {
-	color: _palette(accent1, bg);
-	text-decoration: underline;
+	color: darken(_palette(brand, green), 30%);
+	text-decoration: none;
 
+	&:focus,
 	&:hover {
 		text-decoration: none;
 	}
+}
+
+.text-link {
+	border-bottom: 1px solid darken(_palette(brand, green), 30%);
 }
 
 strong, b {

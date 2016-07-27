@@ -1093,10 +1093,13 @@ body, input, select, textarea {
       font-size: 12pt; } }
 
 a {
-  color: #5AA6ED;
-  text-decoration: underline; }
-  a:hover {
+  color: #15ac6c;
+  text-decoration: none; }
+  a:focus, a:hover {
     text-decoration: none; }
+
+.text-link {
+  border-bottom: 1px solid #15ac6c; }
 
 strong, b {
   color: #555;
@@ -1963,6 +1966,12 @@ body {
   @media screen and (max-width: 736px) {
     #nav {
       padding: 2.5em 1.75em; } }
+
+.credits {
+  border-top: 1px solid #ccc;
+  float: left;
+  padding-top: 15px;
+  width: 100%; }
 
 /* Banner */
 #banner {
