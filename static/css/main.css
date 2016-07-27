@@ -1871,6 +1871,9 @@ body {
   #header {
     min-width: 320px; } }
 
+.beta {
+  color: #1bd989; }
+
 /* Nav */
 #nav {
   -moz-transform: translateX(-18em);
